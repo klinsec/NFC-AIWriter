@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // Cargar variables de entorno (como API_KEY) desde el sistema o archivos .env
+  // Fix: Cast process to any to avoid type error with missing cwd definition
   const env = loadEnv(mode, (process as any).cwd(), '');
 
   return {
@@ -13,12 +14,12 @@ export default defineConfig(({ mode }) => {
     define: {
       // Inyectar la API Key de forma segura
       'process.env.API_KEY': JSON.stringify(env.API_KEY),
-      // Polyfill vital: Evita que librerías que usen 'process.env' rompan la app en el navegador
+      // Definir process.env vacío para evitar crash de librerías, pero permitir acceso a API_KEY
       'process.env': {} 
     },
     build: {
       outDir: 'dist',
-      sourcemap: false
+      sourcemap: true // Útil para depurar si vuelve a fallar
     }
   };
 });
