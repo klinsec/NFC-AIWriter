@@ -1,6 +1,7 @@
 import { GoogleGenAI, Type } from "@google/genai";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// No inicializar aquí arriba para evitar crash si falta la key al inicio
+// const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generateNfcContent = async (prompt: string): Promise<{
     type: 'text' | 'json' | 'url';
@@ -8,6 +9,14 @@ export const generateNfcContent = async (prompt: string): Promise<{
     explanation: string;
 }> => {
   try {
+    // Inicialización Lazy: Solo se crea cuando se necesita.
+    // Esto previene pantalla negra si hay problemas de configuración al inicio.
+    const apiKey = process.env.API_KEY;
+    if (!apiKey) {
+        throw new Error("API Key no configurada. Revisa la configuración del despliegue.");
+    }
+    const ai = new GoogleGenAI({ apiKey });
+
     const model = 'gemini-2.5-flash';
     const systemInstruction = `
       You are an expert in NFC technology and NDEF records. 

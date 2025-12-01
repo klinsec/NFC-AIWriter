@@ -8,11 +8,13 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [react()],
-    // Base relativa para que funcione en subdirectorios de GitHub Pages (ej: usuario.github.io/repo)
+    // Base relativa para que funcione en subdirectorios de GitHub Pages
     base: './',
     define: {
-      // Inyectar la API Key de forma segura durante el build
-      'process.env.API_KEY': JSON.stringify(env.API_KEY)
+      // Inyectar la API Key de forma segura
+      'process.env.API_KEY': JSON.stringify(env.API_KEY),
+      // Polyfill vital: Evita que librerías que usen 'process.env' rompan la app en el navegador
+      'process.env': {} 
     },
     build: {
       outDir: 'dist',

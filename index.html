@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NFC Master & AI Writer</title>
-    <!-- Mantenemos Tailwind vía CDN para simplificar la configuración, aunque en producción idealmente se compilaría -->
+    <!-- Tailwind vía CDN para estilos rápidos sin configuración compleja -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -13,22 +13,31 @@
       ::-webkit-scrollbar-track { background: #1e293b; }
       ::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
     </style>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
-    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
-    "vite": "https://aistudiocdn.com/vite@^7.2.6"
+    "vite": "https://aistudiocdn.com/vite@^7.2.6",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
   <body class="bg-slate-900 text-slate-100 antialiased selection:bg-indigo-500 selection:text-white">
-    <div id="root"></div>
+    <div id="root">
+        <!-- Loading state básico para evitar pantalla negra total mientras carga JS -->
+        <div style="height: 100vh; display: flex; align-items: center; justify-content: center; color: #6366f1;">
+            <svg style="width: 50px; height: 50px; animation: spin 1s linear infinite;" viewBox="0 0 24 24">
+                <circle style="opacity: 0.25;" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                <path style="opacity: 0.75;" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <style>@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }</style>
+        </div>
+    </div>
     <!-- Entry point para Vite -->
     <script type="module" src="/index.tsx"></script>
   </body>
