@@ -1,0 +1,5 @@
+{
+  "name": "NFC Master & AI Writer",
+  "description": "Una aplicación web avanzada para leer y escribir etiquetas NFC. Incluye modos especializados para redes sociales (Instagram deep-linking), configuración WiFi, y generación de contenido inteligente mediante Google Gemini AI.",
+  "requestFramePermissions": []
+}
